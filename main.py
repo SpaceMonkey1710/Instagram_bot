@@ -17,26 +17,35 @@ browser.get('https://www.instagram.com/')
 browser.implicitly_wait(5)
 # Следующие строки говорят боту найти ссылку с текстом Log in и кликнуть по ней.
 login_link = browser.find_element_by_name("username")
-
-print('found name')
 login_link.click()
+print('found name')
 
-sleep(5)
+sleep(3)
 
 username_input = browser.find_element_by_css_selector("input[name='username']")
 password_input = browser.find_element_by_css_selector("input[name='password']")
-
 print('pressed input')
 
 username_input.send_keys("among_us.russia")
 password_input.send_keys("TrySomethingNew")
-
 print('inserted username/password')
 
 login_button = browser.find_element_by_xpath("//button[@type='submit']")
 login_button.click()
-
 print('hit login button')
+
+sleep(3)
+
+save_password_button = browser.find_element_by_xpath("//button[@type='button']")
+save_password_button.click()
+print('hit "not now" button')
+
+sleep(3)
+
+notification_button = browser.find_element_by_css_selector('button.aOOlW:nth-child(2)')
+notification_button.click()
+print('notification "not now"')
+
 
 sleep(10)
 
