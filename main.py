@@ -49,4 +49,4 @@ print('notification "not now"')
 
 sleep(10)
 
-#browser.close()
+browser.close()
