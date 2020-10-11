@@ -1,4 +1,4 @@
-from instapy import InstaPy # need to install library later
+from instapy import InstaPy 
 import os
 
 # Delete cookies so Instagram doesn't block bot for massliking
@@ -11,7 +11,6 @@ try:
     print('Cookie file "among_us.russia_cookie.pkl" has been deleted')
 except:
     print("Cookies file doesn't exist")
-
 
 session = InstaPy(username="among_us.russia", password="TrySomethingNew")
 session.login()
