@@ -1,4 +1,4 @@
-from instapy import InstaPy # need to install library later
+from instapy import InstaPy 
 
 session = InstaPy(username="among_us.russia", password="TrySomethingNew")
 session.login()
