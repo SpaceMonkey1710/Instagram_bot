@@ -12,7 +12,6 @@ try:
 except:
     print("Cookies file doesn't exist")
 
-
 session = InstaPy(username="among_us.russia", password="TrySomethingNew")
 session.login()
 
@@ -21,6 +20,5 @@ session.set_do_comment(True, percentage=50)
 session.set_comments(["Nice!", "Lol!", ":joy:"])
 session.like_by_tags(["amongus", "amongusmemes"], amount=5)
 session.set_dont_like(["naked", "nsfw", "art"])
-
 
 session.end()
