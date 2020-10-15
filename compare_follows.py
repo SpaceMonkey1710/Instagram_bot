@@ -6,10 +6,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from time import sleep
 from secrets import password, username
 
-import requests, pickle, json, os, random
-from datetime import datetime
-from selenium.webdriver.common.action_chains import ActionChains
-
 
 class Instabot:
     def __init__(self, username, password):
@@ -51,7 +47,7 @@ class Instabot:
 
         sleep(5)
 
-    def get_unfollowers(self):
+    def get_followers(self):
         wait = WebDriverWait(self.driver, 10)
 
         profile = self.driver.find_element_by_css_selector('.gmFkV')
@@ -60,11 +56,14 @@ class Instabot:
         following_list = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(@href,'/following')]")))
         following_list.click()  # IT clicks the following and gives window of following list
         print("CLicked following list")
+        sleep(10)
 
         numfollows = self.driver.find_element_by_css_selector('li.Y8-fY:nth-child(3) > a:nth-child(1) > span:nth-child(1)').text
         numfollows = int(numfollows.replace(" ", ""))
         estimated_time = numfollows / 6 * 2 / 60
         print('The number of follows is {}, estimated time is {:.2f} min'.format(numfollows, estimated_time) )
+
+        # scroll follows to the end
         fBody = self.driver.find_element_by_css_selector("div[class='isgrP']")
         scrolling_times = round((numfollows / 4))
         scroll = 0
@@ -76,7 +75,14 @@ class Instabot:
             scroll += 1
             print('{} out of {}'.format(scroll, scrolling_times))
 
+        # make a list of follows accounts
+        scroll_box = self.driver.find_element_by_css_selector(".PZuss")
+        links = scroll_box.find_elements_by_tag_name('a')
+        print(len(links))
+        names = ['@' + name.text for name in links if name.text != '']
+        print(names)
+
 
 
 my_bot = Instabot(username, password)
-my_bot.get_unfollowers()
+my_bot.get_followers()
