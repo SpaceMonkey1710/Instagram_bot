@@ -50,26 +50,26 @@ class Instabot:
 
         sleep(5)
 
-    def get_follows(self):
+    def get_followers(self):
         wait = WebDriverWait(self.driver, 10)
 
         profile = self.driver.find_element_by_css_selector('.gmFkV')
         profile.click()
         print('Opened profile')
-        following_list = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(@href,'/following')]")))
+        following_list = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(@href,'/followers')]")))
         following_list.click()  # IT clicks the following and gives window of following list
-        print("CLicked following list")
+        print("CLicked followers list")
         sleep(10)
 
-        numfollows = self.driver.find_element_by_css_selector(
-            'li.Y8-fY:nth-child(3) > a:nth-child(1) > span:nth-child(1)').text
-        numfollows = int(numfollows.replace(" ", ""))
-        estimated_time = numfollows / 6 * 2 / 60
-        print('The number of follows is {}, estimated time is {:.2f} min'.format(numfollows, estimated_time) )
+        numfollowers = self.driver.find_element_by_css_selector(
+            '#react-root > section > main > div > header > section > ul > li:nth-child(2) > a > span').text
+        numfollowers = int(numfollowers.replace(" ", ""))
+        estimated_time = numfollowers / 6 * 2 / 60
+        print('The number of followers is {}, estimated time is {:.2f} min'.format(numfollowers, estimated_time) )
 
         # scroll follows to the end
         '''fBody = self.driver.find_element_by_css_selector("div[class='isgrP']")
-        scrolling_times = round((numfollows / 4))
+        scrolling_times = round((numfollowers / 4))
         scroll = 0
         while scroll <= scrolling_times:
             self.driver.execute_script(
@@ -85,15 +85,10 @@ class Instabot:
         names = ['@' + name.text for name in links if name.text != '']
         print(len(names), names)
 
-        with open('follows.txt', 'w') as f:
+        with open('followers.txt', 'w') as f:
             for i in range(len(names)):
                 line = names[i] + '\n'
                 f.write(line)
 
-
-
-
-
 my_bot = Instabot(username, password)
-my_bot.get_follows()
-
+my_bot.get_followers()
