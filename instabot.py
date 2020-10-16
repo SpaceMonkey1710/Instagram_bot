@@ -1,5 +1,6 @@
 from instapy import InstaPy
 import os
+from secrets import username, password
 
 # Delete cookies so Instagram doesn't block bot for massliking
 
@@ -12,7 +13,7 @@ try:
 except:
     print("Cookies file doesn't exist")
 
-session = InstaPy(username="among_us.russia", password="TrySomethingNew")
+session = InstaPy(username=username, password=password)
 session.login()
 
 session.set_do_follow(True, percentage=20)
