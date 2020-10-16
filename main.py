@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from time import sleep
+from secrets import username, password
 
 '''options = Options()
 options.headless = True
@@ -26,8 +27,8 @@ username_input = browser.find_element_by_css_selector("input[name='username']")
 password_input = browser.find_element_by_css_selector("input[name='password']")
 print('pressed input')
 
-username_input.send_keys("among_us.russia")
-password_input.send_keys("TrySomethingNew")
+username_input.send_keys(username)
+password_input.send_keys(password)
 print('inserted username/password')
 
 login_button = browser.find_element_by_xpath("//button[@type='submit']")
