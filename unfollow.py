@@ -4,7 +4,33 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from time import sleep
+
 from secrets import password, username
+
+
+
+follows_list = []
+followers_list = []
+
+with open("follows.txt", 'r') as f:
+    for line in f:
+        name = line.strip('\n')
+        follows_list.append(name)
+print(follows_list)
+
+with open("followers.txt", 'r') as f:
+    for line in f:
+        name = line.strip('\n')
+        followers_list.append(name)
+print(followers_list)
+
+s = set(followers_list)
+unfollow_list = [x for x in follows_list if x not in s]
+
+print("There's {} motherfuckers to unsubscribe".format(len(unfollow_list)))
+print(unfollow_list)
+
+
 
 
 class Instabot:
@@ -49,52 +75,21 @@ class Instabot:
         print('notification "not now"')
 
         sleep(5)
-
-    def get_follows(self):
-        wait = WebDriverWait(self.driver, 10)
-
         profile = self.driver.find_element_by_css_selector('.gmFkV')
         profile.click()
         print('Opened profile')
-        following_list = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(@href,'/following')]")))
-        following_list.click()  # IT clicks the following and gives window of following list
-        print("CLicked following list")
-        sleep(10)
 
-        numfollows = self.driver.find_element_by_css_selector(
-            'li.Y8-fY:nth-child(3) > a:nth-child(1) > span:nth-child(1)').text
-        numfollows = int(numfollows.replace(" ", ""))
-        estimated_time = numfollows / 6 * 2 / 60
-        print('The number of follows is {}, estimated time is {:.2f} min'.format(numfollows, estimated_time) )
-
-        # scroll follows to the end
-        fBody = self.driver.find_element_by_css_selector("div[class='isgrP']")
-        scrolling_times = round((numfollows / 4))
-        scroll = 0
-        while scroll <= scrolling_times:
-            self.driver.execute_script(
-                'arguments[0].scrollTop = arguments[0].scrollTop + arguments[0].offsetHeight;', fBody)
-            sleep(2)
-            scroll += 1
-            print('{} out of {}'.format(scroll, scrolling_times))
-
-        # make a list of follows accounts
-        scroll_box = self.driver.find_element_by_css_selector(".PZuss")
-        links = scroll_box.find_elements_by_tag_name('a')
-        print(len(links))
-        names = ['@' + name.text for name in links if name.text != '']
-        print(len(names), names)
-
-        with open('follows.txt', 'a') as f:
-            f.write('__________New data__________' + '\n')
-            for i in range(len(names)):
-                line = names[i] + '\n'
-                f.write(line)
+    def unfollow(self):
+        wait = WebDriverWait(self.driver, 10)
+        for name in range(len(unfollow_list)):
+            sleep(3)
+            search_field = self.driver.find_element_by_xpath('//div[@class="LWmhU _0aCwM"]')
+            search_field.click()
+            search_field.send_keys(name, Keys.ENTER)
 
 
 
 
 
 my_bot = Instabot(username, password)
-my_bot.get_follows()
-
+my_bot.unfollow()
