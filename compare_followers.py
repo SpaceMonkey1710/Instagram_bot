@@ -57,7 +57,7 @@ class Instabot:
         profile.click()
         print('Opened profile')
         following_list = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(@href,'/followers')]")))
-        following_list.click()  # IT clicks the following and gives window of following list
+        following_list.click()  # IT clicks the followers and gives window of followers list
         print("CLicked followers list")
         sleep(10)
 
@@ -67,8 +67,8 @@ class Instabot:
         estimated_time = numfollowers / 6 * 2 / 60
         print('The number of followers is {}, estimated time is {:.2f} min'.format(numfollowers, estimated_time) )
 
-        # scroll follows to the end
-        '''fBody = self.driver.find_element_by_css_selector("div[class='isgrP']")
+        # scroll followers to the end
+        fBody = self.driver.find_element_by_css_selector("div[class='isgrP']")
         scrolling_times = round((numfollowers / 4))
         scroll = 0
         while scroll <= scrolling_times:
@@ -76,16 +76,17 @@ class Instabot:
                 'arguments[0].scrollTop = arguments[0].scrollTop + arguments[0].offsetHeight;', fBody)
             sleep(2)
             scroll += 1
-            print('{} out of {}'.format(scroll, scrolling_times))'''
+            print('{} out of {}'.format(scroll, scrolling_times))
 
-        # make a list of follows accounts
+        # make a list of followers accounts
         scroll_box = self.driver.find_element_by_css_selector(".PZuss")
         links = scroll_box.find_elements_by_tag_name('a')
         print(len(links))
         names = ['@' + name.text for name in links if name.text != '']
         print(len(names), names)
 
-        with open('followers.txt', 'w') as f:
+        with open('followers.txt', 'a') as f:
+            f.write('__________New data__________' + '\n')
             for i in range(len(names)):
                 line = names[i] + '\n'
                 f.write(line)
