@@ -69,7 +69,7 @@ class Instabot:
 
         # scroll follows to the end
         fBody = self.driver.find_element_by_css_selector("div[class='isgrP']")
-        scrolling_times = round((numfollows / 4))
+        scrolling_times = round((numfollows / 5))
         scroll = 0
         while scroll <= scrolling_times:
             self.driver.execute_script(

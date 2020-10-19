@@ -1,8 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
 from time import sleep
 
 from secrets import password, username
@@ -47,7 +43,8 @@ class Instabot:
         notification_button.click()
         print('Notification "not now"')
 
-
+    # Note: Instagram suspects accounts for mass unfollowing, so it's
+    # better not to exceed ~500 accounts per 24 hours
     def unfollow(self, account):
         self.driver.get('https://www.instagram.com/' + account + '/')
         sleep(2)  # not necessary
@@ -63,6 +60,17 @@ class Instabot:
 
         except:
             print("You're not following " + account)
+
+
+    def closeBrowser(self):
+            self.driver.quit()
+
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.closeBrowser()
+
+# compare follows/followers lists to find out
+# who hasn't followed back and write 'unfollow.txt' with them
 
 follows_list = []
 followers_list = []
@@ -86,7 +94,7 @@ with open('unfollow.txt', 'w') as f:
         line = unfollow_list[i] + '\n'
         f.write(line)
 
-print("There's {} motherfuckers to unsubscribe".format(len(unfollow_list)))
+print("There's {} users to unsubscribe".format(len(unfollow_list)))
 print("Estimated time is {} min".format(estimated_time))
 print(unfollow_list)
 
@@ -101,3 +109,4 @@ with open('unfollow.txt', 'r') as file:
         print("{} out of {}".format(count, len(unfollow_list)))
         my_bot.unfollow(account)
 
+my_bot.closeBrowser()
