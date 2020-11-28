@@ -13,6 +13,17 @@ For personal use only, don't violate Instagram rules.
 - 'unfollow.py' creates list of accounts which didn't follow you back in 'unfollow.txt'
 - Using 'unfollow.txt' goes to each account page and clicks unfollow button
 
+Also you can use 'instabot.py' for likes, subscribes and comments.
+```python
+# Here you can set up comments bot needs to leave under posts
+# of tags you choose
+session.set_do_follow(True, percentage=20)        # percentage of following
+session.set_do_comment(True, percentage=50)       # percentage of liking
+session.set_comments(["Nice!", "Lol!", ":joy:"])  # write your comments text
+session.like_by_tags(["tag", "tag"], amount=5)    # number of posts of certain tags you want to leave a like
+session.set_dont_like(["naked", "nsfw", "art"])   # stop-tags you don't want to see
+```
+
 ## How to set up private data
 In the same directory create 'secrets.py' file with your Instagram account password and username so webdriver was able to log you in
 ```python
