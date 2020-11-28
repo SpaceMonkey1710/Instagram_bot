@@ -29,13 +29,13 @@ In the same directory create 'secrets.py' file with your Instagram account passw
 ```python
 from secrets import password, username
 ```
-Also download geckodriver from here https://github.com/mozilla/geckodriver/releases and write it's path 
+Also download geckodriver from here https://github.com/mozilla/geckodriver/releases and write its path 
 ```python
 driver = webdriver.Firefox(executable_path=r'C:\geckodriver\geckodriver.exe')
 ```
 ## Important!
 According to the Instagram security measures against bots try not to exceed 100 unfollows per day or service will hide your follows/followers data from you for up to 3 days. 
-In this case bot won't be able to continue it's task.
+In this case bot won't be able to continue its task. But don't worry - your account won't be blocked (as far as I know). Still, be polite and don't abuse platform.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
