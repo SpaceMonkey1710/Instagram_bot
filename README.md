@@ -34,7 +34,7 @@ Also download geckodriver from here https://github.com/mozilla/geckodriver/relea
 driver = webdriver.Firefox(executable_path=r'C:\geckodriver\geckodriver.exe')
 ```
 ## Important!
-According to the Instagram security measures against bots try not to exceed 100 unfollows per day or service will hide your follows/followers data from you for up to 3 days. 
+According to the Instagram security measures against bots try not to exceed 500 unfollows per day or service will hide your follows/followers data from you for up to 3 days. 
 In this case bot won't be able to continue its task. But don't worry - your account won't be blocked (as far as I know). Still, be polite and don't abuse platform.
 
 ## License
